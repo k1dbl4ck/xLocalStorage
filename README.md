@@ -31,8 +31,9 @@ window.localStorage.override();  //true
 ```
 
 ## Test 
-$ karma start
-
+```
+npm run test
+```
 
 ## Contributing
 Submit a PR or log an issue
