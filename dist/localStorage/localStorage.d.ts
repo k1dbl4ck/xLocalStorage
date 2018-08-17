@@ -14,7 +14,7 @@ export declare class XLocalStorage {
      * @param {any} value
      * @returns {Promise<any>}
      */
-    setItem(key: string, value: any): Promise<void>;
+    setItem(key: string, value: any): Promise<any>;
     /**
      * Gets value from localStorage by key
      *
@@ -44,7 +44,7 @@ export declare class XLocalStorage {
     /**
      * Clears all stored values
      */
-    clear(): Promise<boolean>;
+    clear(): Promise<void>;
     /**
      * Implicitly indicates if window.localstorage was overwritten (redefined by this class)
      */

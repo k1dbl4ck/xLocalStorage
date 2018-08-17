@@ -115,9 +115,7 @@ var XLocalStorage = /** @class */ (function () {
                             return [2 /*return*/];
                         storage.cache[encodedKey] = value;
                         return [4 /*yield*/, storage.store.setItem(encodedKey, value)];
-                    case 1:
-                        _a.sent();
-                        return [3 /*break*/, 3];
+                    case 1: return [2 /*return*/, _a.sent()];
                     case 2:
                         error_2 = _a.sent();
                         delete storage.cache[key];
@@ -157,7 +155,7 @@ var XLocalStorage = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         delete storage.cache[encodedKey];
-                        return [3 /*break*/, 4];
+                        return [2 /*return*/];
                     case 3:
                         error_3 = _a.sent();
                         throw new Error("x-localStorage.removeItem() : " + error_3.stack);
@@ -173,7 +171,8 @@ var XLocalStorage = /** @class */ (function () {
      * @returns {string || null}
      */
     XLocalStorage.prototype.key = function (index) {
-        return atob(Object.keys(storage.cache)[index]) || null;
+        var key = Object.keys(storage.cache)[index];
+        return key ? atob(key) : null;
     };
     /**
      * Returns the total length of stored values
@@ -196,7 +195,8 @@ var XLocalStorage = /** @class */ (function () {
                         return [4 /*yield*/, storage.store.clear()];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/, true];
+                        storage.cache = {};
+                        return [2 /*return*/];
                     case 2:
                         error_4 = _a.sent();
                         throw new Error("x-localStorage.clear() : " + error_4.stack);

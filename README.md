@@ -30,6 +30,16 @@ window.localStorage.override();  //true
 
 ```
 
+## Build 
+```
+npm run build
+```
+
+## Link 
+```
+npm run link
+```
+
 ## Test 
 ```
 npm run test

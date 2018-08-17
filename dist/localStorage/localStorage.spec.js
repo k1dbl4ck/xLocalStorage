@@ -9,45 +9,91 @@ describe('localStorage', function () {
             done();
         });
     });
-    it('should be able to set a value', function (done) {
-        storage.setItem('test', 'value').then(function () {
-            expect(1).toEqual(1);
-            done();
-        }).catch(function (err) {
-            fail('Could not set a value : ' + err);
+    it('should override localStorage', function (done) {
+        storage.init().then(function () {
+            expect(window.localStorage.override()).toEqual(true);
             done();
         });
     });
+    it('should be able to set a value', function (done) {
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                expect(1).toEqual(1);
+                done();
+            }).catch(function (err) {
+                fail('Could not set a value : ' + err);
+                done();
+            });
+        });
+    });
     it('should be able to get a value', function (done) {
-        var result = storage.getItem('test');
-        expect(result).toEqual("value");
-        done();
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                var result = storage.getItem('test');
+                expect(result).toEqual("value");
+                done();
+            }).catch(function (err) {
+                fail('Could not set a value : ' + err);
+                done();
+            });
+        });
     });
     it('should be able to get a key by index', function (done) {
-        var result = storage.key(0);
-        expect(result).toEqual("test");
-        done();
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                var result = storage.key(0);
+                expect(result).toEqual("test");
+                done();
+            }).catch(function (err) {
+                fail('Could not set a value : ' + err);
+                done();
+            });
+        });
     });
     it('should be able to return total storage length', function (done) {
-        var result = storage.length();
-        expect(result).toEqual(1);
-        done();
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                var result = storage.length();
+                expect(result).toEqual(1);
+                done();
+            }).catch(function (err) {
+                fail('Could not set a value : ' + err);
+                done();
+            });
+        });
     });
     it('should be able to remove a value', function (done) {
-        storage.removeItem('test');
-        var result = storage.getItem('test');
-        expect(result).toEqual(null);
-        done();
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                store.removeItem('test').then(function () {
+                    var result = store.getItem('test');
+                    expect(result).toEqual(null);
+                    done();
+                }).catch(function (err) {
+                    fail('Could not remove value : ' + err);
+                    done();
+                });
+            });
+        });
     });
     it('should be able to remove all values', function (done) {
-        storage.setItem('test', 'value').then(function () {
-            storage.clear();
-            var result = storage.length();
-            expect(result).toEqual(0);
-            done();
-        }).catch(function (err) {
-            fail('Could not set a value to remove : ' + err);
-            done();
+        storage.init().then(function () {
+            var store = window.localStorage;
+            store.setItem('test', 'value').then(function () {
+                store.clear().then(function () {
+                    var result = storage.length();
+                    expect(result).toEqual(null);
+                    done();
+                }).catch(function (err) {
+                    fail('Could not set a value to remove : ' + err);
+                    done();
+                });
+            });
         });
     });
 });
